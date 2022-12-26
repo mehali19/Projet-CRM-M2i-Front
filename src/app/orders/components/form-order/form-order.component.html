@@ -1,0 +1,49 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="type_presta">Type de prestation *</label>
+    <input type="text" class="form-control" id="type_presta" formControlName="type_presta">
+    <div class="alert alert-danger"
+      *ngIf="form.controls['type_presta'].invalid && form.controls['type_presta'].touched">
+      Ce champ est requis
+    </div>
+  </div>
+
+  <div class="form-group" formGroupName="client" *ngIf="clients$ | async as clients">
+    <label for="client">Client *</label>
+    <select class="form-control form-select" id="client" formControlName="id">
+      <option [value]="client.id" *ngFor="let client of clients">
+        {{ client.company_name }}
+      </option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="designation">Description</label>
+    <input type="text" class="form-control" id="designation" formControlName="designation">
+    <div class="alert alert-danger"
+      *ngIf="form.controls['designation'].invalid && form.controls['designation'].touched">
+      Ce champ est requis
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="nb_days">Nombre de jours</label>
+    <input type="number" class="form-control" id="nb_days" formControlName="nb_days">
+  </div>
+
+  <div class="form-group">
+    <label for="unit_price">Prix unitaire journalier</label>
+    <input type="number" class="form-control" id="unit_price" formControlName="unit_price">
+  </div>
+
+  <div class="form-group">
+    <label for="state">Etat de la commande</label>
+    <select class="form-control form-select" id="state" formControlName="state">
+      <option [value]="state" *ngFor="let state of states">
+        {{ state }}
+      </option>
+    </select>
+  </div>
+
+  <button [disabled]="form.invalid" label="Submit" type="submit">Envoyer</button>
+</form>
